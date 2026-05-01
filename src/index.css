@@ -255,3 +255,19 @@ h1, h2, h3, h4 {
   .hero-ring    { animation: none; }
   .scroll-line  { animation: none; }
 }
+
+/* ─── Mobile Adjustments & Fixes ───────────────────────────── */
+@media (max-width: 768px) {
+  html { font-size: 14px; }
+  body { cursor: default !important; }
+  .btn-primary, .btn-outline { padding: 12px 28px; font-size: 0.8rem; }
+  .eyebrow { letter-spacing: 2.5px; }
+}
+
+/* Hide cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .cursor, .cursor-follower {
+    display: none !important;
+  }
+  body { cursor: default !important; }
+}

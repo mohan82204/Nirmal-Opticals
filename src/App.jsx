@@ -78,8 +78,14 @@ export default function App() {
     ring.style.height    = `${followerSize.current}px`
   }, [])
 
+  const [isTouch, setIsTouch] = useState(false)
+  
   useEffect(() => {
-    if (prefersReduced) return // skip cursor loop for reduced-motion users
+    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0)
+  }, [])
+
+  useEffect(() => {
+    if (prefersReduced || isTouch) return // skip cursor loop for reduced-motion or touch users
 
     const onMove = (e) => {
       pos.current.x = e.clientX
@@ -110,12 +116,12 @@ export default function App() {
       mo.disconnect()
       if (rafCursor.current) cancelAnimationFrame(rafCursor.current)
     }
-  }, [prefersReduced, loopCursor])
+  }, [prefersReduced, isTouch, loopCursor])
 
   return (
     <>
       {/* Custom cursor — raw DOM refs, zero Framer overhead */}
-      {!prefersReduced && (
+      {!prefersReduced && !isTouch && (
         <>
           <div ref={cursorRef}   className="cursor" />
           <div ref={followerRef} className="cursor-follower" />

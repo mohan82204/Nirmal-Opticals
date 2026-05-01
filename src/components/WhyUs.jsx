@@ -48,7 +48,7 @@ export default function WhyUs() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, x: 40 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px', background: 'var(--border-subtle)', border: '1px solid var(--border-subtle)' }}>
+            <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px', background: 'var(--border-subtle)', border: '1px solid var(--border-subtle)' }}>
               {[
                 { num: 34, suffix: '+', label: tx.stats.years[lang] },
                 { num: 5000, suffix: '+', label: tx.stats.customers[lang] },
@@ -68,7 +68,13 @@ export default function WhyUs() {
           </motion.div>
         </div>
       </div>
-      <style>{`@media (max-width: 768px) { #whyus { padding: 80px 24px !important; } #whyus > div > div:first-child { grid-template-columns: 1fr !important; gap: 40px !important; } }`}</style>
+      <style>{`
+        @media (max-width: 768px) { 
+          #whyus { padding: 80px 24px !important; } 
+          #whyus > div > div:first-child { grid-template-columns: 1fr !important; gap: 40px !important; } 
+          .stats-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   )
 }

@@ -178,7 +178,7 @@ export default function Contact() {
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.6rem', fontWeight: 300, color: 'var(--ivory)', marginBottom: '8px' }}>{t('contact', 'formTitle')}</div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="form-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '0.65rem', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '8px', fontFamily: 'var(--font-body)' }}>{t('contact', 'fullName')}</label>
                     <motion.input required variants={inputVariants} initial="initial" whileFocus="focus" whileHover="hover" style={baseInputStyle} placeholder={t('contact', 'namePlaceholder')} value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
@@ -220,6 +220,7 @@ export default function Contact() {
         @media (max-width: 900px) {
           #contact > div > div:last-child { grid-template-columns: 1fr !important; gap: 50px !important; }
           #contact { padding: 80px 24px !important; }
+          .form-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

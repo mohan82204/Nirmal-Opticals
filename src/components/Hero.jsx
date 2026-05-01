@@ -39,7 +39,7 @@ export default function Hero() {
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 80% at 60% 50%, rgba(201,168,76,0.04) 0%, transparent 70%)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '200px', background: 'linear-gradient(to top, var(--bg-primary), transparent)', pointerEvents: 'none' }} />
 
-      <div style={{
+      <div className="hero-grid-container" style={{
         position: 'relative', zIndex: 2,
         maxWidth: '1200px', margin: '0 auto',
         padding: '0 48px', paddingTop: '120px',
@@ -133,7 +133,10 @@ export default function Hero() {
 
       <style>{`
         @media (max-width: 768px) {
-          #hero > div > div { grid-template-columns: 1fr !important; padding: 0 24px !important; }
+          .hero-grid-container { grid-template-columns: 1fr !important; padding: 0 24px !important; gap: 20px !important; display: flex !important; flex-direction: column-reverse !important; }
+          .hero-canvas-container { height: 350px !important; margin-top: 40px !important; }
+          #hero { min-height: auto !important; padding-bottom: 60px !important; }
+          #hero h1 { font-size: 3.2rem !important; }
         }
       `}</style>
     </section>
