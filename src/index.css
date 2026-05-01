@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap');
+
+/* ─── Design tokens ────────────────────────────────────────── */
+:root {
+  --bg-primary:    #06060e;
+  --bg-secondary:  #0d0d1a;
+  --bg-card:       rgba(255, 255, 255, 0.03);
+  --gold:          #c9a84c;
+  --gold-light:    #e8c96a;
+  --gold-dark:     #9a7a2e;
+  --ivory:         #f2ede4;
+  --ivory-dim:     rgba(242, 237, 228, 0.6);
+  --white:         #ffffff;
+  --accent-blue:   #4a9eff;
+  --border:        rgba(201, 168, 76, 0.2);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --font-display:  'Cormorant Garamond', serif;
+  --font-body:     'Outfit', sans-serif;
+  --shadow-gold:   0 0 40px rgba(201, 168, 76, 0.15);
+  --shadow-deep:   0 30px 80px rgba(0, 0, 0, 0.5);
+}
+
+/* ─── Reset ────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--ivory);
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: none;
+  /* NO animated body::before noise texture — it repaints every frame */
+}
+
+/* ─── Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 2px; }
+
+/* ─── Section base ─────────────────────────────────────────── */
+section { position: relative; }
+
+/* ─── Gold divider ─────────────────────────────────────────── */
+.gold-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 0 auto;
+}
+
+/* ─── Glassmorphism ─────────────────────────────────────────── */
+/*
+ * Keep backdrop-filter only where it is visible and meaningful.
+ * Non-critical glass surfaces use a static semi-transparent bg
+ * to avoid triggering a separate composited layer per element.
+ */
+.glass {
+  background: rgba(13, 13, 26, 0.72);   /* static fallback — no backdrop-filter */
+  border: 1px solid var(--border-subtle);
+}
+
+/* Use this only when the blur is clearly visible to the user */
+.glass-blur {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+}
+
+/* ─── Buttons ───────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 36px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--bg-primary);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  /* will-change only while hover transition is active */
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.btn-primary:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 36px;
+  background: transparent;
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 1px solid var(--gold);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn-outline:hover {
+  background: rgba(201, 168, 76, 0.08);
+}
+
+/* ─── Eyebrow badge ─────────────────────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
+}
+.eyebrow::before,
+.eyebrow::after {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* ─── Headings ──────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+/* ─── Selection / Focus ─────────────────────────────────────── */
+::selection        { background: rgba(201, 168, 76, 0.3); color: var(--ivory); }
+:focus-visible     { outline: 1px solid var(--gold); outline-offset: 4px; }
+
+/* ─── Custom cursor ─────────────────────────────────────────── */
+/*
+ * Cursor is now driven by raw DOM refs + a single rAF loop in App.jsx.
+ * will-change: transform is set here because these elements animate
+ * on EVERY frame — this is a legitimate use.
+ */
+.cursor {
+  width: 10px;
+  height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+
+.cursor-follower {
+  border: 1px solid rgba(201, 168, 76, 0.5);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  will-change: transform, width, height;
+  transition: width 0.15s ease, height 0.15s ease;
+}
+
+/* ─── Hero — CSS entrance animations ───────────────────────── */
+/*
+ * Replaces the heavy motion.div wrappers on static Hero elements.
+ * One keyframe declaration, many elements share it via a class.
+ */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-fade-in {
+  opacity: 0;
+  animation: heroFadeUp 0.8s ease forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Decorative rings — CSS infinite rotation, no Framer overhead */
+@keyframes spinCW  { to { transform: rotate(360deg);  } }
+@keyframes spinCCW { to { transform: rotate(-360deg); } }
+
+.hero-ring   { position: absolute; border-radius: 50%; }
+.hero-ring-0 { animation: spinCW  30s linear infinite; }
+.hero-ring-1 { animation: spinCCW 40s linear infinite; }
+.hero-ring-2 { animation: spinCW  50s linear infinite; }
+
+/* Scroll line bounce */
+@keyframes scrollBounce {
+  0%, 100% { transform: scaleY(1)   translateY(0); }
+  50%       { transform: scaleY(0.6) translateY(8px); }
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  transform-origin: top center;
+  animation: scrollBounce 1.5s ease-in-out infinite;
+}
+
+/* ─── useInView elements — earlier trigger, no mid-scroll jank ─ */
+/*
+ * Components that use useInView should pass:
+ *   rootMargin: "0px 0px -10% 0px"
+ *   threshold: 0
+ * so the animation fires before the element fully enters the viewport.
+ */
+
+/* ─── Float utility (used by misc decorative elements) ─────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-12px) rotate(1deg); }
+  66%       { transform: translateY(-6px) rotate(-0.5deg); }
+}
+
+/* ─── Responsive helpers ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .desktop-nav     { display: none  !important; }
+  .mobile-menu-btn { display: flex  !important; }
+}
+
+/* ─── Respect prefers-reduced-motion ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration:   0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration:  0.01ms !important;
+  }
+  .hero-fade-in { opacity: 1; animation: none; }
+  .hero-ring    { animation: none; }
+  .scroll-line  { animation: none; }
+}
