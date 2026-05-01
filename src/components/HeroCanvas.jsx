@@ -157,6 +157,11 @@ export default function HeroCanvas() {
     glassesGroup.add(new THREE.Mesh(padBridgeGeo, goldMat))
 
     glassesGroup.position.y = 0.2
+    
+    // Scale for mobile
+    const scale = window.innerWidth < 768 ? 0.6 : 1
+    glassesGroup.scale.set(scale, scale, scale)
+    
     scene.add(glassesGroup)
 
     // ── Particles (40, down from 120) ─────────────────────────
@@ -234,6 +239,9 @@ export default function HeroCanvas() {
       camera.aspect = w / h
       camera.updateProjectionMatrix()
       renderer.setSize(w, h)
+      
+      const s = window.innerWidth < 768 ? 0.6 : 1
+      glassesGroup.scale.set(s, s, s)
     }
     window.addEventListener('resize', onResize, { passive: true })
 
